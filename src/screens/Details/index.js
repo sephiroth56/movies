@@ -1,46 +1,26 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, ScrollView } from 'react-native'
+import { View, StyleSheet, ScrollView } from 'react-native'
 import { useSelector } from 'react-redux';
-import { IMAGE_PATH } from '../../utils/constants'
-import Loader from './components/Loader'
-import moment from 'moment';
+import { Loader, Backdrop, Info } from './components'
 
-moment.locale('es');
 
-const Details = ({ navigation }) => {
+const Details = () => {
 
     const item = useSelector(state => state.movieItem);
 
-    const renderMovie = ({ backdrop_path, title, release_date, vote_average, runtime, overview, genres }) => {
-        console.log(item)
-        return (<View style={styles.container}>
-            <Image
-                style={styles.picture}
-                source={{ uri: IMAGE_PATH + backdrop_path }}>
-            </Image>
-            <ScrollView>
-                <View style={styles.detailContainer}>
-                    <Text style={styles.title}>{title}</Text>
-                    <Text style={styles.subtitle}>Duración:</Text>
-                    <Text style={styles.text}>{runtime} min.</Text>
-                    <Text style={styles.subtitle}>Fecha de estreno:</Text>
-                    <Text style={styles.text}>{moment(release_date).format("DD MMMM yyyy")}</Text>
-                    <Text style={styles.subtitle}>Calificación:</Text>
-                    <Text style={styles.text}>{vote_average}</Text>
-                    <Text style={styles.subtitle}>Generos:</Text>
-                    <Text style={styles.text}>{genres.map(gender => gender.name).toString()}</Text>
-                    <Text style={styles.subtitle}>Descripción:</Text>
-                    <Text style={styles.text}>{overview}</Text>
-                </View>
-            </ScrollView>
-        </View>)
-    };
     if (!item) {
         return <Loader />
     }
-    return <View style={styles.container}>
 
-        {renderMovie(item)}
+    return <View style={styles.container}>
+        <Backdrop
+            item={item}
+        />
+        <ScrollView>
+            <Info
+                item={item}
+            />
+        </ScrollView>
     </View>
 }
 const styles = StyleSheet.create({

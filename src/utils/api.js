@@ -1,10 +1,10 @@
 import axios from 'axios'
-import { GET_ALL_URL, GET_MOVIE_DETAILS_URL } from './constants'
+import { GET_ALL_URL, GET_MOVIE_DETAILS_URL, GET_IMAGES_DETAILS_URL } from './constants'
 
 /** Consulta el listado de las peliculas */
-export const getMovieList = async () => {
+export const getMovieList = async (page) => {
     try {
-        let response = await axios(GET_ALL_URL)
+        let response = await axios( `${GET_ALL_URL}${page}`)
         let results = response?.data?.results
         return Array.isArray(results) ? results : []
     } catch (ex) {
@@ -18,10 +18,11 @@ export const getMovieDetails = async (id) => {
         let url = GET_MOVIE_DETAILS_URL(id)
         let response = await axios(url)
         let result = response?.data
-        console.log(response)
         return result
     } catch (ex) {
         return null
     }
 
 }
+
+
