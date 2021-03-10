@@ -13,32 +13,34 @@ const Details = ({ navigation }) => {
 
     const renderMovie = ({ backdrop_path, title, release_date, vote_average, runtime, overview, genres }) => {
         console.log(item)
-        return (<View >
+        return (<View style={styles.container}>
             <Image
                 style={styles.picture}
                 source={{ uri: IMAGE_PATH + backdrop_path }}>
             </Image>
-            <View style={styles.detailContainer}>
-                <Text style={styles.title}>{title}</Text>
-                <Text style={styles.subtitle}>Duración:</Text>
-                <Text style={styles.text}>{runtime} min.</Text>
-                <Text style={styles.subtitle}>Fecha de estreno:</Text>
-                <Text style={styles.text}>{moment(release_date).format("DD MMMM yyyy")}</Text>
-                <Text style={styles.subtitle}>Calificación:</Text>
-                <Text style={styles.text}>{vote_average}</Text>
-                <Text style={styles.subtitle}>Generos:</Text>
-                <Text style={styles.text}>{genres.map(gender => gender.name).toString()}</Text>
-                <Text style={styles.subtitle}>Descripción:</Text>
-                <Text style={styles.text}>{overview}</Text>
-            </View>
+            <ScrollView>
+                <View style={styles.detailContainer}>
+                    <Text style={styles.title}>{title}</Text>
+                    <Text style={styles.subtitle}>Duración:</Text>
+                    <Text style={styles.text}>{runtime} min.</Text>
+                    <Text style={styles.subtitle}>Fecha de estreno:</Text>
+                    <Text style={styles.text}>{moment(release_date).format("DD MMMM yyyy")}</Text>
+                    <Text style={styles.subtitle}>Calificación:</Text>
+                    <Text style={styles.text}>{vote_average}</Text>
+                    <Text style={styles.subtitle}>Generos:</Text>
+                    <Text style={styles.text}>{genres.map(gender => gender.name).toString()}</Text>
+                    <Text style={styles.subtitle}>Descripción:</Text>
+                    <Text style={styles.text}>{overview}</Text>
+                </View>
+            </ScrollView>
         </View>)
     };
     if (!item) {
         return <Loader />
     }
     return <View style={styles.container}>
-        <ScrollView>
-            {renderMovie(item)}</ScrollView>
+
+        {renderMovie(item)}
     </View>
 }
 const styles = StyleSheet.create({
