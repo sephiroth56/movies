@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, FlatList, ImageBackground, TouchableOpacity, RefreshControl } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux';
 import { setMovieList, setItem ,setMoreMovieList} from '../../actions'
-import { getMovieList, getMovieDetails, getMovieImagesDetails } from '../../utils/api'
+import { getMovieList, getMovieDetails } from '../../utils/api'
 import {ItemList} from './components'
 
 const Home = ({ navigation }) => {
@@ -11,10 +11,8 @@ const Home = ({ navigation }) => {
     
     data = useSelector(state => state.movieList),
 
-    goToItemDetails = async item => {
-        console.log("ITEM",item)
-        let details = await getMovieDetails(item.id)
-        await getMovieImagesDetails(item.backdrop_path)
+    goToItemDetails = async id => {
+        let details = await getMovieDetails(id)
         dispatch(setItem(details))
         navigation.navigate('Details');
     },
